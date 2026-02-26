@@ -26,7 +26,7 @@
           v-for="project in projects"
           :key="project.name"
           class="group relative flex flex-col transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 bg-slate-900/50 border-slate-800 backdrop-blur-sm overflow-hidden"
-          :ui="{ body: { padding: 'p-0' } }"
+          :ui="{ body: 'p-0' }"
         >
           <!-- Gradient Hover Effect -->
           <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="project.gradient"></div>
@@ -36,7 +36,7 @@
               <div class="p-3 rounded-xl bg-slate-800/80 ring-1 ring-white/5 shadow-inner">
                 <UIcon :name="project.icon" class="w-6 h-6" :class="project.iconColor" />
               </div>
-              <UBadge variant="soft" :color="project.badgeColor" size="sm" class="rounded-lg shadow-sm font-medium">
+              <UBadge variant="soft" :color="project.badgeColor as any" size="sm" class="rounded-lg shadow-sm font-medium">
                 {{ project.tag }}
               </UBadge>
             </div>
@@ -86,7 +86,7 @@ const projects = [
     icon: 'i-lucide-activity',
     gradient: 'from-emerald-400 to-teal-500',
     iconColor: 'text-emerald-400',
-    badgeColor: 'emerald',
+    badgeColor: 'success',
     tag: 'FinTech / Real-time'
   },
   {
@@ -96,7 +96,7 @@ const projects = [
     icon: 'i-lucide-globe',
     gradient: 'from-blue-400 to-indigo-500',
     iconColor: 'text-blue-400',
-    badgeColor: 'blue',
+    badgeColor: 'info',
     tag: 'SaaS / Testing'
   },
   {
@@ -106,7 +106,7 @@ const projects = [
     icon: 'i-lucide-newspaper',
     gradient: 'from-amber-400 to-orange-500',
     iconColor: 'text-amber-400',
-    badgeColor: 'amber',
+    badgeColor: 'warning',
     tag: 'Media / Content'
   },
   {
@@ -116,27 +116,27 @@ const projects = [
     icon: 'i-lucide-bot',
     gradient: 'from-purple-400 to-fuchsia-500',
     iconColor: 'text-purple-400',
-    badgeColor: 'purple',
+    badgeColor: 'primary',
     tag: 'AI / Infra'
   },
   {
     name: 'Circuit Breaker Sales',
     description: 'Massive B2B search catalog migration converting an outdated WooCommerce monolith into a blazing fast SQLite-backed Nuxt 4 application.',
-    url: '#',
+    url: 'https://circuitbreakersales.com',
     icon: 'i-lucide-battery-charging',
     gradient: 'from-yellow-400 to-amber-500',
     iconColor: 'text-yellow-400',
-    badgeColor: 'yellow',
+    badgeColor: 'warning',
     tag: 'E-commerce'
   },
   {
     name: 'Live Music Tonight',
     description: 'Automated scraping engine and event aggregator showcasing live music venues around Austin, Texas. Synchronizes with D1 daily.',
-    url: 'https://austin-texas.net',
+    url: 'https://events.austin-texas.net',
     icon: 'i-lucide-music',
     gradient: 'from-rose-400 to-pink-500',
     iconColor: 'text-rose-400',
-    badgeColor: 'rose',
+    badgeColor: 'error',
     tag: 'Aggregator'
   }
 ]
