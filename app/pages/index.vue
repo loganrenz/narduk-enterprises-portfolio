@@ -62,7 +62,7 @@ const projects = [
   {
     name: 'Neon Sewer Raid',
     description: 'A fast-paced, neon-drenched roguelike survival game. High-octane action rendered entirely on the Edge with Nuxt 4.',
-    url: 'https://neon-sewer-raid.com',
+    url: 'https://neon-sewer-raid.narduk.workers.dev',
     icon: 'i-lucide-swords',
     gradient: 'from-fuchsia-500 to-purple-600',
     iconColor: 'text-fuchsia-400',
@@ -72,7 +72,7 @@ const projects = [
   {
     name: 'Clawdle',
     description: 'Wordle, but with a Claw twist. Daily word puzzles featuring advanced state management and high-fidelity UI animations.',
-    url: 'https://clawdle.com',
+    url: 'https://clawdle.narduk.workers.dev',
     icon: 'i-lucide-fingerprint',
     gradient: 'from-orange-400 to-red-500',
     iconColor: 'text-orange-400',
