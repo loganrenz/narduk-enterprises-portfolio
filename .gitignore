@@ -30,3 +30,10 @@ logs
 # Test artifacts
 playwright-report/
 test-results/
+# ESLint plugin build artifacts (rebuilt via postinstall)
+eslint-plugin-nuxt-ui/dist/
+eslint-plugin-nuxt-guardrails/dist/
+tools/eslint-plugin-vue-official-best-practices/dist/
+
+# ESLint caches
+.eslint-results.json
