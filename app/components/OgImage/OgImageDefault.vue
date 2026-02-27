@@ -10,6 +10,8 @@
   No Tailwind classes, no CSS Grid, no pseudo-elements.
 -->
 <script setup lang="ts">
+import { OG_COLORS } from './tokens'
+
 withDefaults(defineProps<{
   title?: string
   description?: string
@@ -33,7 +35,7 @@ withDefaults(defineProps<{
       justifyContent: 'center',
       alignItems: 'flex-start',
       padding: '80px',
-      background: 'linear-gradient(135deg, #0a0f1a 0%, #0f1729 40%, #111d33 100%)',
+      background: `linear-gradient(135deg, ${OG_COLORS.bg} 0%, ${OG_COLORS.bgStep} 40%, ${OG_COLORS.bgEnd} 100%)`,
       fontFamily: 'Inter, sans-serif',
       position: 'relative',
       overflow: 'hidden',
@@ -48,7 +50,7 @@ withDefaults(defineProps<{
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
+        background: `radial-gradient(circle, ${OG_COLORS.primary}26 0%, transparent 70%)`,
       }"
     />
 
@@ -60,7 +62,7 @@ withDefaults(defineProps<{
         left: '0',
         right: '0',
         height: '4px',
-        background: 'linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6)',
+        background: `linear-gradient(90deg, ${OG_COLORS.primary}, #3b82f6, #8b5cf6)`,
       }"
     />
 
@@ -79,7 +81,7 @@ withDefaults(defineProps<{
       :style="{
         fontSize: '56px',
         fontWeight: '700',
-        color: '#f1f5f9',
+        color: OG_COLORS.text,
         lineHeight: '1.15',
         marginBottom: '16px',
         maxWidth: '900px',
@@ -94,7 +96,7 @@ withDefaults(defineProps<{
       :style="{
         fontSize: '24px',
         fontWeight: '400',
-        color: '#94a3b8',
+        color: OG_COLORS.muted,
         lineHeight: '1.5',
         maxWidth: '800px',
       }"
@@ -118,7 +120,7 @@ withDefaults(defineProps<{
           width: '32px',
           height: '32px',
           borderRadius: '8px',
-          background: '#10b981',
+          background: OG_COLORS.primary,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -133,7 +135,7 @@ withDefaults(defineProps<{
         :style="{
           fontSize: '18px',
           fontWeight: '600',
-          color: '#64748b',
+          color: OG_COLORS.dimmed,
         }"
       >
         {{ siteName }}

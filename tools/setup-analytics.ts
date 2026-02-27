@@ -1,40 +1,9 @@
 import { spawnSync } from 'node:child_process'
 import { randomBytes } from 'node:crypto'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { request } from 'node:https'
-import { URL } from 'node:url'
 import 'dotenv/config'
 
-/** HTTPS request helper (avoids TLS issues some envs have with fetch + PostHog). */
-function httpsJson(
-  method: string,
-  urlStr: string,
-  opts: { headers?: Record<string, string>; body?: object } = {}
-): Promise<{ statusCode: number; data: any }> {
-  const u = new URL(urlStr)
-  const headers: Record<string, string> = { Accept: 'application/json', ...opts.headers }
-  if (opts.body) headers['Content-Type'] = 'application/json'
-  return new Promise((resolve, reject) => {
-    const req = request(
-      { hostname: u.hostname, path: u.pathname + u.search, method, headers },
-      (res) => {
-        let buf = ''
-        res.on('data', (c) => { buf += c })
-        res.on('end', () => {
-          try {
-            resolve({ statusCode: res.statusCode!, data: buf ? JSON.parse(buf) : {} })
-          } catch {
-            reject(new Error(`Invalid JSON: ${buf.slice(0, 200)}`))
-          }
-        })
-      }
-    )
-    req.on('error', reject)
-    if (opts.body) req.write(JSON.stringify(opts.body))
-    req.end()
-  })
-}
 
 /**
  * Analytics Setup Script
@@ -254,7 +223,6 @@ function findVerificationFiles(): string[] {
   const publicDir = join(process.cwd(), 'public')
   const found: string[] = []
   try {
-    const { readdirSync } = require('node:fs')
     for (const file of readdirSync(publicDir)) {
       if (file.startsWith('google') && (file.endsWith('.html') || /^google[0-9a-z]+$/.test(file))) {
         found.push(`public/${file}`)
@@ -477,7 +445,6 @@ async function runGscPipeline() {
 
     const publicDir = join(process.cwd(), 'public')
     if (!existsSync(publicDir)) {
-      const { mkdirSync } = require('node:fs')
       mkdirSync(publicDir, { recursive: true })
     }
 

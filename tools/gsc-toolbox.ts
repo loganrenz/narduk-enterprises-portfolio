@@ -136,7 +136,7 @@ async function main() {
 
   try {
     switch (cmd) {
-      case 'init':
+      case 'init': {
         await addSite(siteUrl)
         const token = await getVerificationToken(siteUrl)
         if (token) {
@@ -172,8 +172,9 @@ async function main() {
           console.log('👉 Deploy your app, then run: npm run setup:gsc:verify')
         }
         break
+      }
       
-      case 'verify':
+      case 'verify': {
         await verifySite(siteUrl)
         const userEmail = process.env.GSC_USER_EMAIL
         if (userEmail) {
@@ -183,6 +184,7 @@ async function main() {
           console.log('👉 To see this property in your dashboard, add your email to .env and run: npm run setup:gsc:verify')
         }
         break
+      }
 
       case 'submit':
         await submitSitemap(siteUrl)
