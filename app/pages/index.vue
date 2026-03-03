@@ -32,7 +32,7 @@ const projects = [
   {
     name: 'Nuxt 4 Edge Template',
     description: 'A minimal, production-ready starter template designed for maximum performance on Cloudflare Workers and D1 SQLite.',
-    url: 'https://github.com/loganrenz/nuxt-v4-template',
+    url: 'https://github.com/narduk-enterprises/nuxt-v4-template',
     icon: 'i-lucide-rocket',
     gradient: 'from-emerald-400 to-cyan-500',
     iconColor: 'text-emerald-400',
@@ -42,7 +42,7 @@ const projects = [
   {
     name: 'Nuxt 4 Template Examples',
     description: 'Full-featured reference implementations for the Nuxt 4 Edge Template, including Auth, Analytics, and Dashboard patterns.',
-    url: 'https://github.com/loganrenz/nuxt-v4-template-examples',
+    url: 'https://github.com/narduk-enterprises/nuxt-v4-template-examples',
     icon: 'i-lucide-library',
     gradient: 'from-indigo-400 to-blue-500',
     iconColor: 'text-indigo-400',

@@ -1,20 +1,20 @@
 # AGENTS.md — AI Agent Instructions
 
-> **🚨 CRITICAL: DO NOT PUSH TO `loganrenz/narduk-enterprises-portfolio` 🚨**
+> **🚨 CRITICAL: DO NOT PUSH TO `narduk-enterprises/narduk-enterprises-portfolio` 🚨**
 >
 > This is a **read-only template repository**. Before writing ANY code, you MUST create your own repo:
 >
 > ```bash
-> gh repo create <project-name> --template loganrenz/narduk-enterprises-portfolio --private --clone
+> gh repo create <project-name> --template narduk-enterprises/narduk-enterprises-portfolio --private --clone
 > cd <project-name>
 > pnpm install
 > ```
 >
-> **Verify your remote** with `git remote -v` — it must NOT point to `loganrenz/narduk-enterprises-portfolio`.
+> **Verify your remote** with `git remote -v` — it must NOT point to `narduk-enterprises/narduk-enterprises-portfolio`.
 
 This is a **minimal Nuxt 4 + Nuxt UI 4** boilerplate deployed to **Cloudflare Workers** with **D1 SQLite** (Drizzle ORM).
 
-For full-featured example implementations (auth, analytics, blog, dashboard, forms, etc.), see the companion repo: **[`loganrenz/narduk-enterprises-portfolio-examples`](https://github.com/loganrenz/narduk-enterprises-portfolio-examples)**.
+For full-featured example implementations (auth, analytics, blog, dashboard, forms, etc.), see the companion repo: **[`narduk-enterprises/narduk-enterprises-portfolio-examples`](https://github.com/narduk-enterprises/narduk-enterprises-portfolio-examples)**.
 
 ## Project Structure
 
@@ -89,7 +89,7 @@ Sitemap and robots.txt are automatic. OG image templates live in `app/components
 
 ## 🚨 CRITICAL RULE: NEVER COMMIT TO THIS REPOSITORY 🚨
 
-If you are an agent building a new project inside a clone of this repository, **DO NOT COMMIT OR PUSH** directly back to `loganrenz/narduk-enterprises-portfolio`. Verify the user has set up a new remote origin first.
+If you are an agent building a new project inside a clone of this repository, **DO NOT COMMIT OR PUSH** directly back to `narduk-enterprises/narduk-enterprises-portfolio`. Verify the user has set up a new remote origin first.
 
 ## Quality Audit Workflows
 
@@ -106,7 +106,7 @@ Run these during development (Antigravity slash-commands):
 
 # 📖 Recipes
 
-These are opt-in feature recipes. Follow them when the project needs a specific capability. For working reference implementations of each, clone **[`loganrenz/narduk-enterprises-portfolio-examples`](https://github.com/loganrenz/narduk-enterprises-portfolio-examples)**.
+These are opt-in feature recipes. Follow them when the project needs a specific capability. For working reference implementations of each, clone **[`narduk-enterprises/narduk-enterprises-portfolio-examples`](https://github.com/narduk-enterprises/narduk-enterprises-portfolio-examples)**.
 
 ---
 
