@@ -11,7 +11,7 @@
     "postinstall": "nuxt prepare && pnpm run build:plugins",
     "typecheck": "npx nuxt typecheck",
     "deploy": "nuxt build && wrangler deploy",
-    "generate:favicons": "node scripts/generate-favicons.mjs",
+    "generate:favicons": "npx tsx tools/generate-favicons.ts",
     "prelint": "(test -f .nuxt/eslint.config.mjs || nuxt prepare) && (test -f eslint-plugin-nuxt-ui/dist/index.js || pnpm run build:plugins)",
     "lint": "eslint .",
     "quality": "pnpm run lint && pnpm run typecheck",
@@ -19,9 +19,9 @@
     "db:migrate": "wrangler d1 execute narduk-enterprises-portfolio-db --local --file=drizzle/0000_initial_schema.sql",
     "db:studio": "drizzle-kit studio",
     "build:plugins": "cd eslint-plugin-nuxt-ui && pnpm run build && cd ../eslint-plugin-nuxt-guardrails && pnpm run build && cd ../tools/eslint-plugin-vue-official-best-practices && pnpm run build",
-    "predev": "node tools/check-setup.js",
-    "prebuild": "node tools/check-setup.js",
-    "predeploy": "node tools/check-setup.js",
+    "predev": "node tools/check-setup.cjs",
+    "prebuild": "node tools/check-setup.cjs",
+    "predeploy": "node tools/check-setup.cjs",
     "update-layer": "npx tsx tools/update-layer.ts"
   },
   "dependencies": {
