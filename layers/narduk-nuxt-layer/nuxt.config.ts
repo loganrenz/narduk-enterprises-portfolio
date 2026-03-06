@@ -27,6 +27,8 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    /** Optional: secret for cron routes (e.g. cache warming). Set CRON_SECRET in Doppler; init.ts provisions it. */
+    cronSecret: process.env.CRON_SECRET || '',
     appleTeamId: process.env.APPLE_TEAM_ID || '',
     appleKeyId: process.env.APPLE_KEY_ID || '',
     appleSecretKey: process.env.APPLE_SECRET_KEY || '',
@@ -36,6 +38,9 @@ export default defineNuxtConfig({
       buildVersion: process.env.GITHUB_SHA || process.env.CF_PAGES_COMMIT_SHA || '',
       buildTime: new Date().toISOString(),
       gaMeasurementId: process.env.GA_MEASUREMENT_ID || '',
+      posthogHost: process.env.POSTHOG_HOST || 'https://us.i.posthog.com',
+      cspScriptSrc: process.env.CSP_SCRIPT_SRC || '',
+      cspConnectSrc: process.env.CSP_CONNECT_SRC || '',
     },
   },
 
@@ -45,7 +50,7 @@ export default defineNuxtConfig({
     description: 'A Nuxt 4 application deployed on Cloudflare Workers.',
   },
 
-  compatibilityDate: '2026-03-05',
+  compatibilityDate: '2026-03-03',
 
   hooks: {
     // Workaround for nuxt/ui#6118: @nuxt/ui@4.5.0 auto-import scanner
