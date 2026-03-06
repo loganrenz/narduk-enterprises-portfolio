@@ -47,26 +47,24 @@ var require_script_setup_default = {
       {},
       {
         // Check for export default with component options
-        "ExportDefaultDeclaration"(node) {
+        ExportDefaultDeclaration(node) {
           if (allowOptionsApi) {
             return;
           }
           if (node.declaration && node.declaration.type === "ObjectExpression") {
-            const hasComponentOptions = node.declaration.properties.some(
-              (prop) => {
-                const key = prop.key?.name || prop.key?.value;
-                return [
-                  "data",
-                  "methods",
-                  "computed",
-                  "watch",
-                  "props",
-                  "emits",
-                  "setup"
-                  // Options API can have setup too
-                ].includes(key);
-              }
-            );
+            const hasComponentOptions = node.declaration.properties.some((prop) => {
+              const key = prop.key?.name || prop.key?.value;
+              return [
+                "data",
+                "methods",
+                "computed",
+                "watch",
+                "props",
+                "emits",
+                "setup"
+                // Options API can have setup too
+              ].includes(key);
+            });
             if (hasComponentOptions) {
               context.report({
                 node,
@@ -173,11 +171,7 @@ function isNuxtMode(context) {
     return nuxtCache;
   }
   cacheKey = cwd;
-  const nuxtConfigFiles = [
-    "nuxt.config.ts",
-    "nuxt.config.js",
-    "nuxt.config.mjs"
-  ];
+  const nuxtConfigFiles = ["nuxt.config.ts", "nuxt.config.js", "nuxt.config.mjs"];
   for (const configFile of nuxtConfigFiles) {
     if (fs.existsSync(path.join(cwd, configFile))) {
       nuxtCache = true;
@@ -290,9 +284,9 @@ var no_setup_top_level_side_effects_default = {
     return parserServices.defineTemplateBodyVisitor(
       {},
       {
-        "CallExpression": checkSideEffect,
-        "MemberExpression": checkSideEffect,
-        "Identifier": checkSideEffect
+        CallExpression: checkSideEffect,
+        MemberExpression: checkSideEffect,
+        Identifier: checkSideEffect
       }
     );
   }
@@ -321,7 +315,7 @@ var no_async_computed_getter_default = {
     return parserServices.defineTemplateBodyVisitor(
       {},
       {
-        "CallExpression"(node) {
+        CallExpression(node) {
           if (node.callee && node.callee.type === "Identifier" && node.callee.name === "computed" && node.arguments.length > 0) {
             const firstArg = node.arguments[0];
             if (firstArg.type === "ArrowFunctionExpression" && firstArg.async === true) {
@@ -406,7 +400,7 @@ var prefer_shallow_watch_default = {
     return parserServices.defineTemplateBodyVisitor(
       {},
       {
-        "CallExpression": checkForDeepWatch
+        CallExpression: checkForDeepWatch
       }
     );
   }
@@ -596,7 +590,7 @@ var consistent_defineprops_emits_default = {
       const definePropsNodes2 = [];
       const defineEmitsNodes2 = [];
       return {
-        "CallExpression"(node) {
+        CallExpression(node) {
           if (node.callee && node.callee.type === "Identifier" && node.callee.name === "defineProps") {
             if (!isTopLevel(node)) {
               context.report({
@@ -649,7 +643,7 @@ var consistent_defineprops_emits_default = {
     const definePropsNodes = [];
     const defineEmitsNodes = [];
     const scriptVisitor = {
-      "CallExpression"(node) {
+      CallExpression(node) {
         if (node.callee && node.callee.type === "Identifier" && node.callee.name === "defineProps") {
           if (!isTopLevel(node)) {
             context.report({
@@ -676,10 +670,7 @@ var consistent_defineprops_emits_default = {
         }
       }
     };
-    const baseVisitor = parserServices.defineTemplateBodyVisitor(
-      {},
-      scriptVisitor
-    );
+    const baseVisitor = parserServices.defineTemplateBodyVisitor({}, scriptVisitor);
     return {
       ...baseVisitor,
       "Program:exit"() {
@@ -731,7 +722,7 @@ var prefer_typed_defineprops_default = {
     if (!parserServices || !parserServices.defineTemplateBodyVisitor) {
       if (filename.endsWith(".ts")) {
         return {
-          "CallExpression"(node) {
+          CallExpression(node) {
             if (node.callee && node.callee.type === "Identifier" && node.callee.typeParameters === void 0 && node.callee.typeArguments === void 0 && node.typeParameters === void 0 && node.typeArguments === void 0 && node.callee.name === "defineProps") {
               context.report({
                 node,
@@ -747,7 +738,7 @@ var prefer_typed_defineprops_default = {
     return parserServices.defineTemplateBodyVisitor(
       {},
       {
-        "CallExpression"(node) {
+        CallExpression(node) {
           if (node.callee && node.callee.type === "Identifier" && node.callee.name === "defineProps" && node.callee.typeParameters === void 0 && node.callee.typeArguments === void 0 && node.typeParameters === void 0 && node.typeArguments === void 0) {
             if (node.arguments.length > 0) {
               const firstArg = node.arguments[0];
@@ -812,17 +803,17 @@ var require_use_prefix_for_composables_default = {
     const functionNames = /* @__PURE__ */ new Set();
     return {
       // Track function declarations and expressions
-      "FunctionDeclaration"(node) {
+      FunctionDeclaration(node) {
         if (node.id?.name) {
           functionNames.add(node.id.name);
         }
       },
-      "VariableDeclarator"(node) {
+      VariableDeclarator(node) {
         if (node.id?.name && node.init && (node.init.type === "FunctionExpression" || node.init.type === "ArrowFunctionExpression")) {
           functionNames.add(node.id.name);
         }
       },
-      "ExportDefaultDeclaration"(node) {
+      ExportDefaultDeclaration(node) {
         if (node.declaration && (node.declaration.type === "FunctionDeclaration" || node.declaration.type === "FunctionExpression" || node.declaration.type === "ArrowFunctionExpression")) {
           const funcName = node.declaration.id?.name || node.declaration.type === "FunctionExpression" && node.declaration.id?.name;
           if (funcName && !funcName.startsWith("use")) {
@@ -834,7 +825,7 @@ var require_use_prefix_for_composables_default = {
           }
         }
       },
-      "ExportNamedDeclaration"(node) {
+      ExportNamedDeclaration(node) {
         if (node.declaration && node.declaration.type === "FunctionDeclaration") {
           const funcName = node.declaration.id?.name;
           if (funcName && !funcName.startsWith("use")) {
@@ -937,7 +928,7 @@ var no_composable_conditional_hooks_default = {
       }
     };
     return {
-      "CallExpression"(node) {
+      CallExpression(node) {
         checkConditionalHook(node, node.parent);
       }
     };
@@ -1001,8 +992,8 @@ var no_composable_dom_access_without_client_guard_default = {
       });
     };
     return {
-      "MemberExpression": checkDomAccess,
-      "Identifier"(node) {
+      MemberExpression: checkDomAccess,
+      Identifier(node) {
         if (["window", "document", "localStorage"].includes(node.name)) {
           if (node.parent && node.parent.type === "MemberExpression" && node.parent.object === node) {
             return;
@@ -1031,7 +1022,7 @@ var pinia_require_defineStore_id_default = {
   },
   create(context) {
     return {
-      "CallExpression"(node) {
+      CallExpression(node) {
         if (node.callee && node.callee.type === "Identifier" && node.callee.name === "defineStore") {
           if (node.arguments.length === 0) {
             context.report({
@@ -1088,7 +1079,7 @@ var pinia_no_direct_state_mutation_outside_actions_default = {
     }
     const storeScopes = /* @__PURE__ */ new Set();
     return {
-      "CallExpression"(node) {
+      CallExpression(node) {
         if (node.callee && node.callee.type === "Identifier" && node.callee.name === "defineStore") {
           let current = node;
           while (current && current.type !== "Program") {
@@ -1097,7 +1088,7 @@ var pinia_no_direct_state_mutation_outside_actions_default = {
           }
         }
       },
-      "AssignmentExpression"(node) {
+      AssignmentExpression(node) {
         if (node.left && node.left.type === "MemberExpression") {
           const left = node.left;
           if (left.object && left.object.type === "MemberExpression" && left.object.property && left.object.property.name === "$state") {
@@ -1162,7 +1153,7 @@ var pinia_prefer_storeToRefs_destructure_default = {
   },
   create(context) {
     return {
-      "VariableDeclarator"(node) {
+      VariableDeclarator(node) {
         if (node.id && node.id.type === "ObjectPattern" && node.init) {
           const init = node.init;
           if (init.type === "CallExpression" && init.callee && init.callee.type === "Identifier" && init.callee.name.endsWith("Store") && init.callee.name.startsWith("use")) {
@@ -1176,10 +1167,7 @@ var pinia_prefer_storeToRefs_destructure_default = {
               messageId: "preferStoreToRefs",
               data: { url: PINIA_DOCS },
               fix(fixer) {
-                return fixer.replaceText(
-                  init,
-                  `storeToRefs(${storeCallText})`
-                );
+                return fixer.replaceText(init, `storeToRefs(${storeCallText})`);
               }
             });
           }
@@ -1189,10 +1177,7 @@ var pinia_prefer_storeToRefs_destructure_default = {
               messageId: "preferStoreToRefs",
               data: { url: PINIA_DOCS },
               fix(fixer) {
-                return fixer.replaceText(
-                  init,
-                  `storeToRefs(${init.name})`
-                );
+                return fixer.replaceText(init, `storeToRefs(${init.name})`);
               }
             });
           }

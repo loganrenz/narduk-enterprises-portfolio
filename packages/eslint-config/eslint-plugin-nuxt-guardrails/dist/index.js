@@ -187,7 +187,8 @@ var no_raw_fetch_default = {
       const inPages = normalized.includes("/app/pages/");
       const inComponents = normalized.includes("/app/components/");
       if (!inPages && !inComponents) return {};
-      if (normalized.includes("e2e/") || normalized.includes(".spec.") || normalized.includes(".test.")) return {};
+      if (normalized.includes("e2e/") || normalized.includes(".spec.") || normalized.includes(".test."))
+        return {};
     }
     return {
       CallExpression(node) {
@@ -672,7 +673,17 @@ var valid_useFetch_default = {
           for (const prop of options.properties) {
             if (prop.type === "Property" && prop.key && prop.key.type === "Identifier") {
               const key = prop.key.name;
-              const commonOptions = /* @__PURE__ */ new Set(["server", "default", "key", "lazy", "immediate", "watch", "getCachedData", "pick", "transform"]);
+              const commonOptions = /* @__PURE__ */ new Set([
+                "server",
+                "default",
+                "key",
+                "lazy",
+                "immediate",
+                "watch",
+                "getCachedData",
+                "pick",
+                "transform"
+              ]);
               if (!validOptionKeys.has(key) && !commonOptions.has(key)) ;
             }
           }
@@ -874,7 +885,8 @@ var no_map_async_in_server_default = {
         const args = node.arguments;
         if (args.length === 0) return;
         const first = args[0];
-        if (!first || first.type !== "ArrowFunctionExpression" && first.type !== "FunctionExpression") return;
+        if (!first || first.type !== "ArrowFunctionExpression" && first.type !== "FunctionExpression")
+          return;
         if (first.async) {
           context.report({
             node: callee.property,
@@ -1192,7 +1204,8 @@ var no_fetch_create_bypass_default = {
     if (!testMode) {
       if (!normalized.includes("/app/")) return {};
       if (normalized.includes("plugins/fetch.client.")) return {};
-      if (normalized.includes(".test.") || normalized.includes(".spec.") || normalized.includes("e2e/")) return {};
+      if (normalized.includes(".test.") || normalized.includes(".spec.") || normalized.includes("e2e/"))
+        return {};
     }
     return {
       CallExpression(node) {
