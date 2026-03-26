@@ -439,7 +439,7 @@ var no_template_complex_expressions_default = {
           },
           maxCallArgs: {
             type: "number",
-            default: 1
+            default: 2
           },
           allowedFunctions: {
             type: "array",
@@ -458,7 +458,7 @@ var no_template_complex_expressions_default = {
     const options = context.options[0] || {};
     const maxTernaryDepth = options.maxTernaryDepth ?? 1;
     const maxLogicalOps = options.maxLogicalOps ?? 3;
-    const maxCallArgs = options.maxCallArgs ?? 1;
+    const maxCallArgs = options.maxCallArgs ?? 2;
     const allowedFunctions = options.allowedFunctions || DEFAULT_WHITELIST;
     if (!parserServices || !parserServices.defineTemplateBodyVisitor) {
       return {};

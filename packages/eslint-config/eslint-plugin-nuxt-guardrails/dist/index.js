@@ -1062,7 +1062,7 @@ var require_csrf_header_on_mutations_default = {
   meta: {
     type: "problem",
     docs: {
-      description: "mutation $fetch calls in composables must include X-Requested-With header for CSRF protection",
+      description: "mutation $fetch calls in composables must use useCsrfFetch()/useAppFetch() or include X-Requested-With header",
       category: "Security",
       recommended: true
     },
@@ -1076,7 +1076,7 @@ var require_csrf_header_on_mutations_default = {
       }
     ],
     messages: {
-      missingCsrf: "Mutation $fetch calls in composables must include { headers: { 'X-Requested-With': 'XMLHttpRequest' } } for CSRF protection, or use useNuxtApp().$csrfFetch."
+      missingCsrf: "Mutation $fetch calls must include CSRF protection. Prefer useCsrfFetch() or useAppFetch() (auto-injects header). Alternatively, add { headers: { 'X-Requested-With': 'XMLHttpRequest' } } manually."
     }
   },
   create(context) {
@@ -1204,6 +1204,7 @@ var no_fetch_create_bypass_default = {
     if (!testMode) {
       if (!normalized.includes("/app/")) return {};
       if (normalized.includes("plugins/fetch.client.")) return {};
+      if (normalized.includes("composables/useCsrfFetch.")) return {};
       if (normalized.includes(".test.") || normalized.includes(".spec.") || normalized.includes("e2e/"))
         return {};
     }
