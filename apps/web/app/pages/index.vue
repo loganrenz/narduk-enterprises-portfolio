@@ -281,7 +281,7 @@ const projects = [
                 target="_blank"
                 variant="ghost"
                 color="neutral"
-                trailing-icon="i-heroicons-arrow-up-right-20-solid"
+                trailing-icon="i-lucide-arrow-up-right"
                 class="hover:bg-muted -ml-2 transition-colors font-medium text-muted hover:text-default"
               >
                 Launch Project
