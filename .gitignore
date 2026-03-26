@@ -37,3 +37,6 @@ eslint-plugin-nuxt-guardrails/dist/
 
 # ESLint caches
 .eslint-results.json
+.dev.vars
+doppler.yaml
+doppler.json

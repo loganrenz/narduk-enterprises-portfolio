@@ -5,8 +5,8 @@
   "version": "1.2.6",
   "scripts": {
     "build": "nuxt build",
-    "dev": "doppler run -- nuxt dev",
-    "db:migrate": "bash ../../tools/db-migrate.sh narduk-enterprises-portfolio-db --local --dir drizzle",
+    "dev": "(doppler run -- nuxt dev || nuxt dev)",
+    "db:migrate": "bash ../../tools/db-migrate.sh narduk-enterprises-portfolio-db --local --dir node_modules/@narduk-enterprises/narduk-nuxt-template-layer/drizzle --dir drizzle",
     "db:studio": "drizzle-kit studio",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -15,8 +15,11 @@
     "prelint": "test -f .nuxt/eslint.config.mjs || nuxt prepare",
     "lint": "eslint . --max-warnings 0",
     "quality": "echo 'Turbo dependsOn handles lint + typecheck + format:check'",
-    "db:reset": "bash ../../tools/db-migrate.sh narduk-enterprises-portfolio-db --local --dir drizzle --reset && pnpm run db:seed",
-    "db:ready": "pnpm run db:migrate && pnpm run db:seed"
+    "db:reset": "bash ../../tools/db-migrate.sh narduk-enterprises-portfolio-db --local --dir node_modules/@narduk-enterprises/narduk-nuxt-template-layer/drizzle --dir drizzle --reset && pnpm run db:seed",
+    "db:ready": "pnpm run db:migrate && pnpm run db:seed",
+    "predev": "pnpm run db:ready",
+    "db:seed": "wrangler d1 execute narduk-enterprises-portfolio-db --local --file=node_modules/@narduk-enterprises/narduk-nuxt-template-layer/drizzle/seed.sql",
+    "db:verify": "node node_modules/@narduk-enterprises/narduk-nuxt-template-layer/testing/verify-local-db.mjs ."
   },
   "dependencies": {
     "@narduk-enterprises/narduk-nuxt-template-layer": "workspace:*",
@@ -24,11 +27,11 @@
     "drizzle-orm": "^0.45.1",
     "nuxt": "^4.3.1",
     "zod": "^4.3.6",
-    "@narduk-enterprises/eslint-config": "^1.0.11"
+    "@narduk-enterprises/eslint-config": "^1.0.17"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
-    "eslint": "^10.0.2",
+    "eslint": "^9.39.4",
     "nitro-cloudflare-dev": "^0.2.2",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.9.3",
